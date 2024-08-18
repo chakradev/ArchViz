@@ -1,0 +1,51 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns items to the end of the container */
+    min-height: 10vh;
+    background: linear-gradient(135deg, #f0f8ff, #e6e6e6); /* Light gradient background */
+    padding: 20px;
+  }
+  
+  .content {
+    max-width: 600px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-right: 20px; /* Adds some spacing from the right edge */
+  }
+  
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-family: 'Roboto', sans-serif;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .explore-button {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .explore-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  

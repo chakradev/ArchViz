@@ -1,0 +1,11 @@
+Model Information:
+* title:	Follmann 2.OG
+* source:	https://sketchfab.com/3d-models/follmann-2og-0f4c56dcadb64af29003cecf54e869d7
+* author:	FelixMatveev (https://sketchfab.com/FelixMatveev)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Follmann 2.OG" (https://sketchfab.com/3d-models/follmann-2og-0f4c56dcadb64af29003cecf54e869d7) by FelixMatveev (https://sketchfab.com/FelixMatveev) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
