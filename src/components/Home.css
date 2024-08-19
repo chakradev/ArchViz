@@ -1,0 +1,67 @@
+/* Home.css */
+
+/* General body style for dark mode */
+body {
+  background-color: #121212; /* Dark background color */
+  color: #e0e0e0; /* Light text color for better readability */
+  font-family: 'Arial', sans-serif; /* Choose a clean, readable font */
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for home view */
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  padding: 20px;
+  background: linear-gradient(135deg, #1e1e1e, #2c2c2c); /* Gradient background for depth */
+}
+
+/* Content section styling */
+.content {
+  text-align: center;
+  background-color: #1f1f1f; /* Slightly lighter dark background for content */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+}
+
+/* Heading styling */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #ffffff; /* White color for heading text */
+}
+
+/* Paragraph styling */
+p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #b0b0b0; /* Light gray for paragraph text */
+}
+
+/* Button styling */
+.explore-button {
+  background-color: #6200ea; /* Vibrant button color */
+  color: #ffffff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.explore-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+}
+
+  
