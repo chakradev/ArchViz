@@ -1,6 +1,3 @@
-Here's the complete `README.md` file in markdown format:
-
-```markdown
 # ArchViz 3D Viewer
 
 Welcome to the ArchViz 3D Viewer, a web-based application for exploring and interacting with stunning 3D architecture models. This project uses React, Three.js, and React Three Fiber to render 3D models in a browser environment, offering an intuitive and engaging experience.
