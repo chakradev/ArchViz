@@ -22,7 +22,8 @@ This application allows users to:
 
 ## Live Demo
 
-Check out the live version of the project: [ArchViz 3D Viewer](https://arch-viz.vercel.app/)
+Check out the live version of the project: [ArchViz 3D Viewer]
+https://arch-viz.vercel.app
 
 ## Getting Started
 
