@@ -1,74 +1,123 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+Here's the complete `README.md` file in markdown format:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# ArchViz 3D Viewer
 
-## Available Scripts
+Welcome to the ArchViz 3D Viewer, a web-based application for exploring and interacting with stunning 3D architecture models. This project uses React, Three.js, and React Three Fiber to render 3D models in a browser environment, offering an intuitive and engaging experience.
 
-In the project directory, you can run:
+## Project Overview
 
-### `npm start`
+This application allows users to:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- View and explore 3D architectural models.
+- Interact with specific points of interest using clickable markers.
+- Experience smooth camera transitions to different areas of the model.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Responsive Design:** The application adapts to different screen sizes and devices.
+- **Interactive Markers:** Clickable spheres highlight key areas within the 3D model.
+- **Smooth Camera Transitions:** The camera smoothly transitions to different positions upon interacting with markers.
+- **Dark Mode:** A sleek, modern dark-themed UI.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Live Demo
 
-### `npm run build`
+Check out the live version of the project: [ArchViz 3D Viewer](https://arch-viz.vercel.app/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js
+- npm or yarn
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   git clone https://github.com/your-username/arch-viz.git
+   cd arch-viz
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install dependencies:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+   or
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   yarn install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Start the development server:
 
-### Code Splitting
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   or
 
-### Analyzing the Bundle Size
+   ```bash
+   yarn start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+4. Open your browser and visit `http://localhost:3000` to see the app in action.
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project is deployed on Vercel. You can easily deploy it yourself by following these steps:
 
-### `npm run build` fails to minify
+1. Install the Vercel CLI:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# ArchViz
->>>>>>> 907ec4b4e85b984a9a3285a107f0a5044804e7b0
+   ```bash
+   npm install -g vercel
+   ```
+
+2. Deploy the project:
+
+   ```bash
+   vercel
+   ```
+
+3. Follow the on-screen instructions to complete the deployment.
+
+## Project Structure
+
+- `src/`
+  - `components/`
+    - `Home.js` - The landing page of the application.
+    - `ThreeModel.js` - Handles rendering of the 3D scene and interactive elements.
+  - `App.js` - Main application file.
+  - `index.js` - Entry point of the application.
+- `public/`
+  - `models/` - Contains 3D model files.
+  - `textures/` - Contains texture files.
+
+## Technologies Used
+
+- **React** - A JavaScript library for building user interfaces.
+- **Three.js** - A 3D library that makes WebGL easier to use.
+- **React Three Fiber** - A React renderer for Three.js.
+- **Vercel** - A platform for frontend developers, providing the best workflow to deploy and host your application.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [Three.js](https://threejs.org/) - The powerful 3D library that made this project possible.
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber) - For bridging the gap between React and Three.js.
+- [Vercel](https://vercel.com/) - For providing an easy deployment solution.
+
+---
+
+**Note:** For any issues or suggestions, feel free to open an issue or submit a pull request.
+
+Enjoy exploring the 3D world of architecture!
+```
+
+You can copy this markdown content into your `README.md` file for your GitHub repository.
