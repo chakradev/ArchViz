@@ -1,24 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-const ClickableSphere = ({ position, onClick, label, cameraPosition, info, rightClickInfo, onOptionClick }) => {
+const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOptionClick, isSelected }) => {
   const [hovered, hover] = useState(false);
-  const [clicked, click] = useState(false);
   const [rightClicked, setRightClicked] = useState(false);
   const ref = useRef();
   const labelRef = useRef();
+  const infoBoxRef = useRef();
+  const menuBoxRef = useRef(); // Ref for the menu box
+  const optionRefs = [useRef(), useRef()]; // Refs for the two options
+  const { camera } = useThree(); // Access the camera directly
 
   const handleClick = (event) => {
-    click(!clicked);
     onClick(event, ref.current, position, cameraPosition);
   };
 
-  const handlePointerDown = (event) => {
-    if (event.button === 2) { // Right-click
-      event.stopPropagation();
-      setRightClicked(!rightClicked);
+  const handleContextMenu = (event) => {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault(); // Prevent the default context menu
     }
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation(); // Stop the event from propagating
+    }
+    setRightClicked(!rightClicked); // Toggle right-click menu visibility
   };
 
   const handleOptionClick = (option) => {
@@ -28,15 +34,45 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
     setRightClicked(false); // Optionally hide the right-click box after an option is selected
   };
 
+  // Use frame to update the menu box, info box, label, and each option text rotation to face the camera
+  useFrame(() => {
+    const cameraPosition = new THREE.Vector3();
+    camera.getWorldPosition(cameraPosition);
+
+    if (menuBoxRef.current) {
+      menuBoxRef.current.lookAt(cameraPosition);
+    }
+
+    if (infoBoxRef.current) {
+      infoBoxRef.current.lookAt(cameraPosition);
+    }
+
+    if (labelRef.current) {
+      labelRef.current.lookAt(cameraPosition);
+    }
+
+    optionRefs.forEach((ref) => {
+      if (ref.current) {
+        ref.current.lookAt(cameraPosition);
+      }
+    });
+  });
+
+  useEffect(() => {
+    if (!isSelected) {
+      setRightClicked(false); // Dismiss menu if not selected
+    }
+  }, [isSelected]);
+
   return (
     <>
       {/* Sphere */}
       <mesh
         ref={ref}
         position={position}
-        scale={clicked ? 1.5 : 1}
+        scale={isSelected ? 1.5 : 1}
         onClick={handleClick}
-        onPointerDown={handlePointerDown} // Handle right-click
+        onContextMenu={handleContextMenu} // Handle right-click
         onPointerOver={(event) => {
           event.stopPropagation();
           hover(true);
@@ -44,13 +80,13 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
         onPointerOut={() => hover(false)}
       >
         <sphereGeometry args={[0.1, 32, 32]} />
-        <meshStandardMaterial color={clicked ? 'red' : 'grey'} />
+        <meshStandardMaterial color={isSelected ? 'red' : 'grey'} />
       </mesh>
 
       {/* Border */}
       <mesh
         position={position}
-        scale={clicked ? 1.52 : 1.12} // Adjust scale for the border
+        scale={isSelected ? 1.52 : 1.12} // Adjust scale for the border
       >
         <sphereGeometry args={[0.12, 32, 32]} /> {/* Border geometry */}
         <meshBasicMaterial color='white' side={THREE.BackSide} />
@@ -58,7 +94,10 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
 
       {/* Info Box */}
       {hovered && (
-        <mesh position={[position[0], position[1] + 0.5, position[2]]}>
+        <mesh
+          ref={infoBoxRef}
+          position={[position[0], position[1] + 0.5, position[2]]}
+        >
           <boxGeometry args={[1, 0.7, 0.05]} />
           <meshStandardMaterial color="black" />
           <Text
@@ -76,10 +115,12 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
       )}
 
       {/* Label */}
-      {clicked && (
-        <mesh position={[position[0], position[1] + 0.5, position[2]]}>
+      {isSelected && (
+        <mesh
+          ref={labelRef}
+          position={[position[0], position[1] + 0.5, position[2]]}
+        >
           <Text
-            ref={labelRef}
             fontSize={0.25}
             color="white"
             anchorX="center"
@@ -90,79 +131,60 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
         </mesh>
       )}
 
-      {/* Right-click Box */}
+      {/* Right-click Menu Box */}
       {rightClicked && (
-        <>
-          <mesh position={[position[0] - 0.8, position[1] + 0.3, position[2]]}>
-            <boxGeometry args={[1.5, 1.5, 0.05]} /> {/* Increased height */}
-            <meshStandardMaterial color="black" />
-            
-            {/* MENU Text */}
-            <Text
-              position={[0, 0.6, 0.03]} // Position text slightly in front of the box
-              fontSize={0.15}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-              maxWidth={1.4}
-              lineHeight={1.2}
-            >
-              MENU
-            </Text>
-          </mesh>
+        <mesh
+          ref={menuBoxRef}
+          position={[position[0] - 0.8, position[1] + 0.6, position[2]]}
+        >
+          <boxGeometry args={[0.7, 1.0, 0.05]} /> {/* Outer box geometry */}
+          <meshStandardMaterial color="black" />
+          
+          {/* MENU Text */}
+          <Text
+            position={[0, 0.3, 0.03]} // Position text slightly in front of the box
+            fontSize={0.15}
+            color="white"
+            anchorX="center"
+            anchorY="middle"
+            maxWidth={1.4}
+            lineHeight={1.2}
+          >
+            MENU
+          </Text>
 
-          {/* Option 1 */}
-          <mesh position={[position[0] - 1.0, position[1] + 0.6, position[2]]} onClick={() => handleOptionClick('Option 1')}>
-            <boxGeometry args={[0.5, 0.2, 0.05]} />
-            <meshStandardMaterial color="blue" />
-            <Text
-              position={[0, 0, 0.03]} // Position text slightly in front of the box
-              fontSize={0.1}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-            >
-              Option 1
-            </Text>
-          </mesh>
+          {/* Option 1: Go to Next Room */}
+          <Text
+            ref={optionRefs[0]}
+            position={[0, 0.0, 0.03]} // Positioned below "MENU" text
+            fontSize={0.15}
+            color="red"
+            anchorX="center"
+            anchorY="middle"
+            onClick={() => handleOptionClick('Next')}
+          >
+            Next
+          </Text>
 
-          {/* Option 2 */}
-          <mesh position={[position[0] - 1.0, position[1] + 0.3, position[2]]} onClick={() => handleOptionClick('Option 2')}>
-            <boxGeometry args={[0.5, 0.2, 0.05]} />
-            <meshStandardMaterial color="green" />
-            <Text
-              position={[0, 0, 0.03]} // Position text slightly in front of the box
-              fontSize={0.1}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-            >
-              Option 2
-            </Text>
-          </mesh>
-
-          {/* Option 3 */}
-          <mesh position={[position[0] - 1.0, position[1], position[2]]} onClick={() => handleOptionClick('Option 3')}>
-            <boxGeometry args={[0.5, 0.2, 0.05]} />
-            <meshStandardMaterial color="red" />
-            <Text
-              position={[0, 0, 0.03]} // Position text slightly in front of the box
-              fontSize={0.1}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-            >
-              Option 3
-            </Text>
-          </mesh>
-        </>
+          {/* Option 2: Go to Previous Room */}
+          <Text
+            ref={optionRefs[1]}
+            position={[0, -0.3, 0.03]} // Positioned below the first option
+            fontSize={0.15}
+            color="green"
+            anchorX="center"
+            anchorY="middle"
+            onClick={() => handleOptionClick('Previous')}
+          >
+            Previous
+          </Text>
+        </mesh>
       )}
     </>
   );
 };
 
 export default ClickableSphere;
-
 
 
 
