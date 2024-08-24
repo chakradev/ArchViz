@@ -56,7 +56,7 @@ const ThreeModel = ({ setLoading }) => {
   const [cameraTarget, setCameraTarget] = useState(null);
 
   // Remove the onLoad event from the loader
-  const gltf = useLoader(GLTFLoader, '/models/office/scene.gltf');
+  const gltf = useLoader(GLTFLoader, '/models/room/scene.gltf');
   const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
 
   const markerPositions = [
