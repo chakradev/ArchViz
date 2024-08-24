@@ -14,7 +14,7 @@ const App = () => {
           <div className="logo">
             <img src="image/chakralogo.png" alt="Logo" />
           </div>
-          <h1 className="title">ArchViz 3D Viewer</h1>
+          <h1 className="title">ArchViz</h1>
         </header>
         <main className="App-main">
           <Routes>
