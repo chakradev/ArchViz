@@ -50,11 +50,13 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition }) => {
   );
 };
 
-const ThreeModel = ({ camera, controls }) => {
+const ThreeModel = ({ setLoading }) => {
   const group = useRef();
   const [selected, setSelected] = useState(null);
   const [cameraTarget, setCameraTarget] = useState(null);
-  const { scene } = useLoader(GLTFLoader, '/models/space/scene.gltf');
+
+  // Remove the onLoad event from the loader
+  const gltf = useLoader(GLTFLoader, '/models/office/scene.gltf');
   const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
 
   const markerPositions = [
@@ -81,18 +83,19 @@ const ThreeModel = ({ camera, controls }) => {
     [-6, 0, -3],
     [-5, 0, 2],
     [-4, 0, 6],
-    //[1, -1.5, 4.5], // Example positions, adjust as needed
     [0, 0, 6], // Example positions, adjust as needed
   ];
 
   useEffect(() => {
-    if (!scene) return;
+    if (!gltf) return;
 
-    const box = new THREE.Box3().setFromObject(scene);
+    const box = new THREE.Box3().setFromObject(gltf.scene);
     const center = box.getCenter(new THREE.Vector3());
-    scene.position.sub(center);
-    group.current.add(scene);
-  }, [scene]);
+    gltf.scene.position.sub(center);
+    group.current.add(gltf.scene);
+    console.log("Model positioned in the scene");
+    setLoading(false); // Move this to the end to ensure it's only called once the model is positioned
+  }, [gltf, setLoading]);
 
   const handleClick = (event, mesh, position, cameraPosition) => {
     if (selected) {
@@ -101,25 +104,21 @@ const ThreeModel = ({ camera, controls }) => {
     mesh.material.color.set('red');
     setSelected(mesh);
 
-    // Set the target position for the camera
     setCameraTarget({ position: new THREE.Vector3(...position), cameraPosition: new THREE.Vector3(...cameraPosition) });
   };
 
   useFrame(({ camera }) => {
     if (cameraTarget) {
-      // Smoothly move the camera towards the target position
       const { position, cameraPosition } = cameraTarget;
-      const distance = 6; // Adjust distance for a better view
+      const distance = 6;
       const offset = new THREE.Vector3(0, 2, distance);
       const targetPosition = position.clone().add(offset);
 
-      // Smoothly interpolate the camera position
       camera.position.lerp(cameraPosition, 0.1);
       camera.lookAt(position);
 
-      // Optional: Stop the camera movement when it is close to the target
       if (camera.position.distanceTo(cameraPosition) < 0.1) {
-        setCameraTarget(null); // Stop camera movement when close enough
+        setCameraTarget(null);
       }
     }
   });
@@ -129,14 +128,14 @@ const ThreeModel = ({ camera, controls }) => {
       <ambientLight intensity={0.3} />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <group ref={group}>
-        <primitive object={scene} />
+        <primitive object={gltf.scene} />
         {markerPositions.map((position, index) => (
           <ClickableSphere
             key={index}
             position={position}
             onClick={handleClick}
             label={markerLabels[index]}
-            cameraPosition={cameraPositions[index]} // Pass cameraPosition here
+            cameraPosition={cameraPositions[index]} 
           />
         ))}
       </group>
@@ -144,23 +143,49 @@ const ThreeModel = ({ camera, controls }) => {
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial map={grassTexture} />
       </mesh>
-      <OrbitControls ref={controls} />
+      <OrbitControls />
     </>
   );
 };
 
 const ThreeCanvas = () => {
-  const camera = useRef();
-  const controls = useRef();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("Loading state updated:", loading);
+  }, [loading]);
 
   return (
-    <Canvas camera={{ position: [0, 0, 15], fov: 75 }} ref={camera}>
-      <ThreeModel camera={camera.current} controls={controls} />
-    </Canvas>
+    <>
+      {loading && (
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 100,
+          color: 'white',
+          fontSize: '24px'
+        }}>
+          <div>Loading...</div>
+          <div style={{
+            border: '4px solid white',
+            borderRadius: '50%',
+            width: '50px',
+            height: '50px',
+            animation: 'spin 1s linear infinite'
+          }} />
+        </div>
+      )}
+      <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
+        <ThreeModel setLoading={setLoading} />
+      </Canvas>
+    </>
   );
 };
 
 export default ThreeCanvas;
+
 
 
 
