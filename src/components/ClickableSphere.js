@@ -137,7 +137,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
           ref={menuBoxRef}
           position={[position[0] - 0.8, position[1] + 0.6, position[2]]}
         >
-          <boxGeometry args={[0.7, 1.0, 0.05]} /> {/* Outer box geometry */}
+          <boxGeometry args={[0.8, 1.0, 0.05]} /> {/* Outer box geometry */}
           <meshStandardMaterial color="black" />
           
           {/* MENU Text */}
@@ -163,7 +163,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
             anchorY="middle"
             onClick={() => handleOptionClick('Next')}
           >
-            Next
+            Next →
           </Text>
 
           {/* Option 2: Go to Previous Room */}
@@ -176,7 +176,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
             anchorY="middle"
             onClick={() => handleOptionClick('Previous')}
           >
-            Previous
+            ← Previous
           </Text>
         </mesh>
       )}
