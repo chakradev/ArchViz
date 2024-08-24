@@ -34,8 +34,8 @@ https://arch-viz.vercel.app
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/arch-viz.git
-   cd arch-viz
+   git clone https://github.com/sidan54/ArchViz.git
+   cd ArchViz
    ```
 
 2. Install dependencies:
