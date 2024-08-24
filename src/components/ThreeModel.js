@@ -10,11 +10,10 @@ import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions
 
 const ThreeModel = ({ modelType, setLoading }) => {
   const group = useRef();
-  const [selected, setSelected] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraTarget, setCameraTarget] = useState(null);
 
   const modelPath = modelPaths[modelType];
-
   const gltf = useLoader(GLTFLoader, modelPath);
   const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
 
@@ -30,13 +29,27 @@ const ThreeModel = ({ modelType, setLoading }) => {
   }, [gltf, setLoading]);
 
   const handleClick = (event, mesh, position, cameraPosition) => {
-    if (selected) {
-      selected.material.color.set('grey');
+    if (mesh) {
+      setSelectedIndex(markerPositions.indexOf(position));
     }
-    mesh.material.color.set('red');
-    setSelected(mesh);
-
     setCameraTarget({ position: new THREE.Vector3(...position), cameraPosition: new THREE.Vector3(...cameraPosition) });
+  };
+
+  const handleOptionClick = (option) => {
+    setCameraTarget(null);
+    setSelectedIndex((prevIndex) => {
+      const newIndex = option === 'Next'
+        ? (prevIndex + 1) % markerPositions.length
+        : (prevIndex - 1 + markerPositions.length) % markerPositions.length;
+      
+      // Focus the camera on the new sphere
+      setCameraTarget({
+        position: new THREE.Vector3(...markerPositions[newIndex]),
+        cameraPosition: new THREE.Vector3(...cameraPositions[newIndex])
+      });
+
+      return newIndex;
+    });
   };
 
   useFrame(({ camera }) => {
@@ -68,7 +81,9 @@ const ThreeModel = ({ modelType, setLoading }) => {
             onClick={handleClick}
             label={markerLabels[index]}
             info={markerInfos[index]} // Passing unique info to each sphere
-            cameraPosition={cameraPositions[index]} 
+            cameraPosition={cameraPositions[index]}
+            isSelected={index === selectedIndex} // Pass whether this sphere is selected
+            onOptionClick={handleOptionClick} // Pass the option click handler
           />
         ))}
       </group>
@@ -95,5 +110,4 @@ const ThreeCanvas = ({ modelType }) => {
 };
 
 export default ThreeCanvas;
-
 
