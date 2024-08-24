@@ -1,11 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css'; // Assuming you have a separate CSS file for styles
+import './Home.css';
 
-const Home = () => {
+const Home = ({ setModelType }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleSelectModel = (event) => {
+    // Set the model type based on the selected value
+    const model = event.target.value;
+    setModelType(model);
+  };
+
+  const handleLoadModel = () => {
     navigate('/model');
   };
 
@@ -14,13 +20,27 @@ const Home = () => {
       <div className="content">
         <h1>Welcome to the 3D Architecture View</h1>
         <p>Explore and interact with stunning 3D models.</p>
-        <button onClick={handleClick} className="explore-button">
-          Go to Model
-        </button>
+        <div className="button-group">
+          <select
+            className="model-dropdown"
+            onChange={handleSelectModel}
+          >
+            <option value="office">Office Model</option>
+            <option value="room">Room Model</option>
+            <option value="restaurant">Restaurant Model</option>
+          </select>
+          <button
+            className="explore-button"
+            onClick={handleLoadModel}
+          >
+            Load Model
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Home;
+
 
