@@ -118,11 +118,11 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
       {isSelected && (
         <mesh
           ref={labelRef}
-          position={[position[0], position[1] + 0.5, position[2]]}
+          position={[position[0], position[1] + 0.3, position[2]]}
         >
           <Text
-            fontSize={0.25}
-            color="white"
+            fontSize={0.20}
+            color="rgba(255, 255, 255, 0)"
             anchorX="center"
             anchorY="middle"
           >
