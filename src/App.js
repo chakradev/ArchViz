@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import ThreeCanvas from './components/ThreeModel'; // Ensure the import is correct
 import './App.css';
 
 const App = () => {
+  const [modelType, setModelType] = useState('office'); // Default modelType
+
   return (
     <Router>
       <div className="App">
@@ -16,13 +18,10 @@ const App = () => {
         </header>
         <main className="App-main">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/model" element={<ThreeCanvas />} />
+            <Route path="/" element={<Home setModelType={setModelType} />} />
+            <Route path="/model" element={<ThreeCanvas modelType={modelType} />} />
           </Routes>
         </main>
-        <footer className="App-footer">
-          <p>&copy; 2024 Sidan</p>
-        </footer>
       </div>
     </Router>
   );
