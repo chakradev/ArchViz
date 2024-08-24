@@ -93,19 +93,21 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
       {/* Right-click Box */}
       {rightClicked && (
         <>
-          <mesh position={[position[0] - 0.8, position[1]+0.3, position[2]]}>
-            <boxGeometry args={[1.5, 1, 0.05]} />
+          <mesh position={[position[0] - 0.8, position[1] + 0.3, position[2]]}>
+            <boxGeometry args={[1.5, 1.5, 0.05]} /> {/* Increased height */}
             <meshStandardMaterial color="black" />
+            
+            {/* MENU Text */}
             <Text
-              position={[0, 0.5, 0.03]} // Position text slightly in front of the box
-              fontSize={0.1}
+              position={[0, 0.6, 0.03]} // Position text slightly in front of the box
+              fontSize={0.15}
               color="white"
               anchorX="center"
               anchorY="middle"
               maxWidth={1.4}
               lineHeight={1.2}
             >
-              {rightClickInfo}
+              MENU
             </Text>
           </mesh>
 
@@ -125,7 +127,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
           </mesh>
 
           {/* Option 2 */}
-          <mesh position={[position[0] - 1.0, position[1]+0.3, position[2]]} onClick={() => handleOptionClick('Option 2')}>
+          <mesh position={[position[0] - 1.0, position[1] + 0.3, position[2]]} onClick={() => handleOptionClick('Option 2')}>
             <boxGeometry args={[0.5, 0.2, 0.05]} />
             <meshStandardMaterial color="green" />
             <Text
@@ -140,7 +142,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
           </mesh>
 
           {/* Option 3 */}
-          <mesh position={[position[0] - 1.0, position[1] , position[2]]} onClick={() => handleOptionClick('Option 3')}>
+          <mesh position={[position[0] - 1.0, position[1], position[2]]} onClick={() => handleOptionClick('Option 3')}>
             <boxGeometry args={[0.5, 0.2, 0.05]} />
             <meshStandardMaterial color="red" />
             <Text
@@ -160,7 +162,6 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, right
 };
 
 export default ClickableSphere;
-
 
 
 
