@@ -52,6 +52,7 @@ p {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-right: 10px; /* Space between button and dropdown */
 }
 
 .explore-button:hover {
@@ -63,5 +64,35 @@ p {
   outline: none; /* Remove default focus outline */
   box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
 }
+
+/* Dropdown menu styling */
+.model-dropdown {
+  background-color: #1f1f1f; /* Dropdown background color */
+  color: #e0e0e0; /* Dropdown text color */
+  border: 1px solid #6200ea; /* Border color */
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.model-dropdown:hover {
+  background-color: #2c2c2c; /* Darker background on hover */
+}
+
+.model-dropdown:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+}
+
+/* Container for button and dropdown */
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Space above the button group */
+}
+
 
   
