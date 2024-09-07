@@ -2,6 +2,7 @@
 export const modelPaths = {
     office: '/models/office/scene.gltf',
     room: '/models/room/scene.gltf',
+    house: '/models/house/house.glb',
     restaurant: '/models/restaurant/scene.gltf',
   };
   
@@ -40,4 +41,3 @@ export const modelPaths = {
     [-4, 0, 6],
     [0, 0, 6],
   ];
-  
