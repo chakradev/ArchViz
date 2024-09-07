@@ -14,7 +14,8 @@ const ThreeModel = ({ modelType, setLoading }) => {
   const [cameraTarget, setCameraTarget] = useState(null);
 
   const modelPath = modelPaths[modelType];
-  const gltf = useLoader(GLTFLoader, modelPath);
+  const gltf = useLoader(GLTFLoader, modelPath); // GLTFLoader without DRACOLoader
+  
   const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
 
   useEffect(() => {
@@ -55,10 +56,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
   useFrame(({ camera }) => {
     if (cameraTarget) {
       const { position, cameraPosition } = cameraTarget;
-      const distance = 6;
-      const offset = new THREE.Vector3(0, 2, distance);
-      const targetPosition = position.clone().add(offset);
-
+      
       camera.position.lerp(cameraPosition, 0.1);
       camera.lookAt(position);
 
@@ -73,7 +71,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
       <ambientLight intensity={0.3} />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <group ref={group}>
-        <primitive object={gltf.scene} />
+        {gltf ? <primitive object={gltf.scene} /> : <LoadingSpinner />}
         {markerPositions.map((position, index) => (
           <ClickableSphere
             key={index}
