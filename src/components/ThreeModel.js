@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import ClickableSphere from './ClickableSphere';
 import LoadingSpinner from './LoadingSpinner';
-import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions } from './data';
+import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions, modelConfigurations } from './data';
 
 const ThreeModel = ({ modelType, setLoading }) => {
   const group = useRef();
@@ -14,9 +14,12 @@ const ThreeModel = ({ modelType, setLoading }) => {
   const [cameraTarget, setCameraTarget] = useState(null);
 
   const modelPath = modelPaths[modelType];
-  const gltf = useLoader(GLTFLoader, modelPath); // GLTFLoader without DRACOLoader
-  
+  const gltf = useLoader(GLTFLoader, modelPath);
   const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
+
+  // Get configuration based on modelType
+  const config = modelConfigurations[modelType] || {};
+  const { planeGeometry: planeConfig } = config;
 
   useEffect(() => {
     if (!gltf) return;
@@ -43,7 +46,6 @@ const ThreeModel = ({ modelType, setLoading }) => {
         ? (prevIndex + 1) % markerPositions.length
         : (prevIndex - 1 + markerPositions.length) % markerPositions.length;
       
-      // Focus the camera on the new sphere
       setCameraTarget({
         position: new THREE.Vector3(...markerPositions[newIndex]),
         cameraPosition: new THREE.Vector3(...cameraPositions[newIndex])
@@ -85,8 +87,8 @@ const ThreeModel = ({ modelType, setLoading }) => {
           />
         ))}
       </group>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-        <planeGeometry args={[20, 20]} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={planeConfig?.position || [0, 0, 0]}>
+        <planeGeometry args={planeConfig?.args || [20, 20]} />
         <meshStandardMaterial map={grassTexture} />
       </mesh>
       <OrbitControls />
@@ -97,10 +99,14 @@ const ThreeModel = ({ modelType, setLoading }) => {
 const ThreeCanvas = ({ modelType }) => {
   const [loading, setLoading] = useState(true);
 
+  // Get configuration based on modelType
+  const config = modelConfigurations[modelType] || {};
+  const { camera } = config;
+
   return (
     <>
       {loading && <LoadingSpinner />}
-      <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
+      <Canvas camera={{ position: camera?.position || [0, 0, 15], fov: camera?.fov || 75 }}>
         <ThreeModel modelType={modelType} setLoading={setLoading} />
       </Canvas>
     </>
@@ -108,4 +114,3 @@ const ThreeCanvas = ({ modelType }) => {
 };
 
 export default ThreeCanvas;
-
