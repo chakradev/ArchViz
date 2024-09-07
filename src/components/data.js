@@ -41,3 +41,22 @@ export const modelPaths = {
     [-4, 0, 6],
     [0, 0, 6],
   ];
+  
+  export const modelConfigurations = {
+    office: {
+      planeGeometry: { args: [20, 20], position: [0, -2, 0] },
+      camera: { position: [0, 0, 10], fov: 75 },
+    },
+    room: {
+      planeGeometry: { args: [800, 800], position: [0, -130, 0] },
+      camera: { position: [0, 0, 400], fov: 75 },
+    },
+    house: {
+      planeGeometry: { args: [30, 30], position: [0, -2.7, 0] },
+      camera: { position: [-12, 0, 0], fov: 75 },
+    },
+    restaurant: {
+      planeGeometry: { args: [40, 40], position: [0, -6, 0] },
+      camera: { position: [0, 0, 20], fov: 75 },
+    },
+  };
