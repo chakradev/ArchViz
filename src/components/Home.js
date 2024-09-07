@@ -2,17 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
-const Home = ({ setModelType }) => {
+const Home = () => {
   const navigate = useNavigate();
 
-  const handleSelectModel = (event) => {
-    // Set the model type based on the selected value
-    const model = event.target.value;
-    setModelType(model);
-  };
-
   const handleLoadModel = () => {
-    navigate('/model');
+    const model = document.getElementById('model-select').value;
+    navigate(`/${model}`);
   };
 
   return (
@@ -22,11 +17,12 @@ const Home = ({ setModelType }) => {
         <p>Explore and interact with stunning 3D models.</p>
         <div className="button-group">
           <select
+            id="model-select"
             className="model-dropdown"
-            onChange={handleSelectModel}
           >
             <option value="office">Office Model</option>
             <option value="room">Room Model</option>
+            <option value="house">House Model</option>
             <option value="restaurant">Restaurant Model</option>
           </select>
           <button
