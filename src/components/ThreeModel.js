@@ -7,11 +7,13 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import ClickableSphere from './ClickableSphere';
 import LoadingSpinner from './LoadingSpinner';
 import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions, modelConfigurations } from './data';
+import CameraTransition from './CameraTransition';
 
 const ThreeModel = ({ modelType, setLoading }) => {
   const group = useRef();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraTarget, setCameraTarget] = useState(null);
+  const cameraRef = useRef();
 
   const modelPath = modelPaths[modelType];
   const gltf = useLoader(GLTFLoader, modelPath);
@@ -36,7 +38,10 @@ const ThreeModel = ({ modelType, setLoading }) => {
     if (mesh) {
       setSelectedIndex(markerPositions.indexOf(position));
     }
-    setCameraTarget({ position: new THREE.Vector3(...position), cameraPosition: new THREE.Vector3(...cameraPosition) });
+    setCameraTarget({
+      position: new THREE.Vector3(...position),
+      cameraPosition: new THREE.Vector3(...cameraPosition),
+    });
   };
 
   const handleOptionClick = (option) => {
@@ -45,10 +50,10 @@ const ThreeModel = ({ modelType, setLoading }) => {
       const newIndex = option === 'Next'
         ? (prevIndex + 1) % markerPositions.length
         : (prevIndex - 1 + markerPositions.length) % markerPositions.length;
-      
+
       setCameraTarget({
         position: new THREE.Vector3(...markerPositions[newIndex]),
-        cameraPosition: new THREE.Vector3(...cameraPositions[newIndex])
+        cameraPosition: new THREE.Vector3(...cameraPositions[newIndex]),
       });
 
       return newIndex;
@@ -56,16 +61,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
   };
 
   useFrame(({ camera }) => {
-    if (cameraTarget) {
-      const { position, cameraPosition } = cameraTarget;
-      
-      camera.position.lerp(cameraPosition, 0.1);
-      camera.lookAt(position);
-
-      if (camera.position.distanceTo(cameraPosition) < 0.1) {
-        setCameraTarget(null);
-      }
-    }
+    cameraRef.current = camera; // Set the camera reference
   });
 
   return (
@@ -91,6 +87,12 @@ const ThreeModel = ({ modelType, setLoading }) => {
         <planeGeometry args={planeConfig?.args || [20, 20]} />
         <meshStandardMaterial map={grassTexture} />
       </mesh>
+      {cameraTarget && (
+        <CameraTransition
+          camera={cameraRef.current}
+          cameraTarget={cameraTarget}
+        />
+      )}
       <OrbitControls />
     </>
   );
