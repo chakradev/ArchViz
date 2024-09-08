@@ -79,8 +79,8 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
         }}
         onPointerOut={() => hover(false)}
       >
-        <sphereGeometry args={[0.1, 32, 32]} />
-        <meshStandardMaterial color={isSelected ? 'red' : 'grey'} />
+        <sphereGeometry args={[0.06, 32, 32]} />
+        <meshStandardMaterial color={isSelected ? 'white' : 'grey'} />
       </mesh>
 
       {/* Border */}
@@ -88,7 +88,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
         position={position}
         scale={isSelected ? 1.52 : 1.12} // Adjust scale for the border
       >
-        <sphereGeometry args={[0.12, 32, 32]} /> {/* Border geometry */}
+        <sphereGeometry args={[0.07, 32, 32]} /> {/* Border geometry */}
         <meshBasicMaterial color='white' side={THREE.BackSide} />
       </mesh>
 
@@ -121,7 +121,7 @@ const ClickableSphere = ({ position, onClick, label, cameraPosition, info, onOpt
           position={[position[0], position[1] + 0.3, position[2]]}
         >
           <Text
-            fontSize={0.20}
+            fontSize={0.2}
             color="rgba(255, 255, 255, 0)"
             anchorX="center"
             anchorY="middle"
