@@ -14,11 +14,11 @@ body {
 header {
   background-color: #1f1f1f; /* Dark background for the header */
   color: #e0e0e0; /* Light text color */
-  padding: 15px 20px; /* Adjusted padding for better spacing */
+  padding: 7px 20px; /* Adjusted padding for better spacing */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #333; /* Darker border for contrast */
+  border-bottom: 2px solid #333; /* Darker border for contrast */
 }
 
 .logo img {
