@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import ThreeCanvas from './components/ThreeModel'; // Ensure the import is correct
+import ThreeCanvas from './components/ThreeCanvas'; // Ensure the import is correct
 import './App.css';
 
 const App = () => {
