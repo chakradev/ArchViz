@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import ClickableSphere from './ClickableSphere';
 import LoadingSpinner from './LoadingSpinner';
-import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions, modelConfigurations } from './data';
+import { modelPaths, modelData, modelConfigurations } from './data';
 import CameraTransition from './CameraTransition';
 import Plane from './Plane';
 
@@ -18,7 +18,10 @@ const ThreeModel = ({ modelType, setLoading }) => {
   const gltf = useLoader(GLTFLoader, modelPath);
 
   const config = modelConfigurations[modelType] || {};
-  const { planeGeometry: planeConfig } = config;
+  const { planeGeometry: planeConfig, sphereSize } = config;
+
+  // Get marker positions, labels, infos, and camera positions based on modelType
+  const { markerPositions, markerLabels, markerInfos, cameraPositions } = modelData[modelType] || {};
 
   // Load and position the model
   useEffect(() => {
@@ -69,16 +72,17 @@ const ThreeModel = ({ modelType, setLoading }) => {
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <group ref={group}>
         {gltf ? <primitive object={gltf.scene} /> : <LoadingSpinner />}
-        {markerPositions.map((position, index) => (
+        {markerPositions?.map((position, index) => (
           <ClickableSphere
             key={index}
             position={position}
-            label={markerLabels[index]} // Passing markerLabels
-            info={markerInfos[index]}   // Passing markerInfos
+            label={markerLabels[index]} 
+            info={markerInfos[index]}   
             onClick={handleClick}
             cameraPosition={cameraPositions[index]}
             isSelected={index === selectedIndex}
             onOptionClick={handleOptionClick}
+            sphereSize={sphereSize}  // Pass sphere size to ClickableSphere
           />
         ))}
       </group>
