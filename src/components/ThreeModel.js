@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import ClickableSphere from './ClickableSphere';
 import LoadingSpinner from './LoadingSpinner';
 import { modelPaths, markerPositions, markerLabels, markerInfos, cameraPositions, modelConfigurations } from './data';
 import CameraTransition from './CameraTransition';
+import Plane from './Plane';
 
 const ThreeModel = ({ modelType, setLoading }) => {
   const group = useRef();
@@ -17,12 +16,11 @@ const ThreeModel = ({ modelType, setLoading }) => {
 
   const modelPath = modelPaths[modelType];
   const gltf = useLoader(GLTFLoader, modelPath);
-  const grassTexture = useLoader(TextureLoader, '/textures/terr.jpg');
 
-  // Get configuration based on modelType
   const config = modelConfigurations[modelType] || {};
   const { planeGeometry: planeConfig } = config;
 
+  // Load and position the model
   useEffect(() => {
     if (!gltf) return;
 
@@ -30,10 +28,10 @@ const ThreeModel = ({ modelType, setLoading }) => {
     const center = box.getCenter(new THREE.Vector3());
     gltf.scene.position.sub(center);
     group.current.add(gltf.scene);
-    console.log("Model positioned in the scene");
     setLoading(false);
   }, [gltf, setLoading]);
 
+  // Handle sphere click to change camera position
   const handleClick = (event, mesh, position, cameraPosition) => {
     if (mesh) {
       setSelectedIndex(markerPositions.indexOf(position));
@@ -44,6 +42,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
     });
   };
 
+  // Handle navigation between markers
   const handleOptionClick = (option) => {
     setCameraTarget(null);
     setSelectedIndex((prevIndex) => {
@@ -61,7 +60,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
   };
 
   useFrame(({ camera }) => {
-    cameraRef.current = camera; // Set the camera reference
+    cameraRef.current = camera; // Set camera reference for transitions
   });
 
   return (
@@ -74,45 +73,19 @@ const ThreeModel = ({ modelType, setLoading }) => {
           <ClickableSphere
             key={index}
             position={position}
+            label={markerLabels[index]} // Passing markerLabels
+            info={markerInfos[index]}   // Passing markerInfos
             onClick={handleClick}
-            label={markerLabels[index]}
-            info={markerInfos[index]} // Passing unique info to each sphere
             cameraPosition={cameraPositions[index]}
-            isSelected={index === selectedIndex} // Pass whether this sphere is selected
-            onOptionClick={handleOptionClick} // Pass the option click handler
+            isSelected={index === selectedIndex}
+            onOptionClick={handleOptionClick}
           />
         ))}
       </group>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={planeConfig?.position || [0, 0, 0]}>
-        <planeGeometry args={planeConfig?.args || [20, 20]} />
-        <meshStandardMaterial map={grassTexture} />
-      </mesh>
-      {cameraTarget && (
-        <CameraTransition
-          camera={cameraRef.current}
-          cameraTarget={cameraTarget}
-        />
-      )}
-      <OrbitControls />
+      <Plane planeConfig={planeConfig} />
+      {cameraTarget && <CameraTransition camera={cameraRef.current} cameraTarget={cameraTarget} />}
     </>
   );
 };
 
-const ThreeCanvas = ({ modelType }) => {
-  const [loading, setLoading] = useState(true);
-
-  // Get configuration based on modelType
-  const config = modelConfigurations[modelType] || {};
-  const { camera } = config;
-
-  return (
-    <>
-      {loading && <LoadingSpinner />}
-      <Canvas camera={{ position: camera?.position || [0, 0, 15], fov: camera?.fov || 75 }}>
-        <ThreeModel modelType={modelType} setLoading={setLoading} />
-      </Canvas>
-    </>
-  );
-};
-
-export default ThreeCanvas;
+export default ThreeModel;
