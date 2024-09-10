@@ -1,5 +1,6 @@
 // LoadingSpinner.js
 import React from 'react';
+import './LoadingSpinner.css'; // Create a CSS file for the spinner styles
 
 const LoadingSpinner = () => {
   return (
@@ -8,18 +9,9 @@ const LoadingSpinner = () => {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      zIndex: 100,
-      color: 'white',
-      fontSize: '24px'
+      zIndex: 100
     }}>
-      <div>Loading...</div>
-      <div style={{
-        border: '4px solid white',
-        borderRadius: '50%',
-        width: '50px',
-        height: '50px',
-        animation: 'spin 1s linear infinite'
-      }} />
+      <div className="loader" />
     </div>
   );
 };
