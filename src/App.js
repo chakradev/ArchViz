@@ -14,10 +14,6 @@ const App = () => {
   // Apply dark mode class based on the state
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
-  }, [isDarkMode]);
-
-  // Save theme to local storage when it changes
-  useEffect(() => {
     localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
@@ -39,7 +35,7 @@ const App = () => {
         </header>
         <main className="App-main">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
             <Route path="/office" element={<ThreeCanvas modelType="office" />} />
             <Route path="/room" element={<ThreeCanvas modelType="room" />} />
             <Route path="/house" element={<ThreeCanvas modelType="house" />} />
