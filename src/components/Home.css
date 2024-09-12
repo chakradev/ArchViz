@@ -94,5 +94,46 @@ p {
   margin-top: 20px; /* Space above the button group */
 }
 
+/* Custom model section styling */
+.custom-model-section {
+  margin-top: 20px; /* Space above the custom model section */
+  display: flex;
+  align-items: center; /* Align items vertically center */
+  justify-content: center; /* Center items horizontally */
+  gap: 10px; /* Space between the file input and the button */
+}
+
+/* File input styling */
+.custom-model-input {
+  background-color: #1f1f1f; /* Match the dropdown background */
+  color: #e0e0e0; /* Match the dropdown text color */
+  border: 1px solid #6200ea; /* Match the dropdown border */
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* Custom model button styling */
+.custom-model-button {
+  background-color: #6200ea; /* Different vibrant button color */
+  color: #ffffff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-model-button:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.custom-model-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+}
 
   
