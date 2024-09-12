@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [customModelFile, setCustomModelFile] = useState(null);
 
   const handleLoadModel = () => {
     const model = document.getElementById('model-select').value;
     navigate(`/${model}`);
+  };
+
+  const handleCustomModelUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setCustomModelFile(file);
+    }
+  };
+
+  const handleLoadCustomModel = () => {
+    if (customModelFile) {
+      // Pass the file to the viewer through the route
+      const fileURL = URL.createObjectURL(customModelFile);
+      navigate(`/custom?model=${encodeURIComponent(fileURL)}`);
+    } else {
+      alert("Please upload a valid GLTF/GLB model file.");
+    }
   };
 
   return (
@@ -30,6 +48,22 @@ const Home = () => {
             onClick={handleLoadModel}
           >
             Load Model
+          </button>
+        </div>
+
+        {/* Custom Model Upload and Load Button */}
+        <div className="custom-model-section">
+          <input
+            type="file"
+            accept=".glb, .gltf"
+            className="custom-model-input"
+            onChange={handleCustomModelUpload}
+          />
+          <button
+            className="custom-model-button"
+            onClick={handleLoadCustomModel}
+          >
+            Load Custom Model
           </button>
         </div>
       </div>
