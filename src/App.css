@@ -1,68 +1,92 @@
-/* src/App.css */
-
-body {
-  font-family: Arial, sans-serif;
+/* Base styles for light mode */
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #121212; /* Dark background for the body */
-  color: #e0e0e0; /* Light text color */
+  overflow: hidden; /* Disable scrolling */
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Light background for the body */
+  color: #000000; /* Dark text color */
+  display: flex;
+  flex-direction: column;
+}
+
+/* App layout */
+.App {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden; /* Ensure no scrollbars appear in the app */
 }
 
+/* Header styles */
 header {
-  background-color: #1f1f1f; /* Dark background for the header */
-  color: #e0e0e0; /* Light text color */
+  height: 40px;
+  background-color: #f0f0f0; /* Light background for the header */
+  color: #000000; /* Dark text color */
   padding: 7px 20px; /* Adjusted padding for better spacing */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #333; /* Darker border for contrast */
+  border-bottom: 2px solid #cccccc; /* Lighter border for contrast */
 }
 
+/* Logo image styles */
 .logo img {
   max-height: 50px;
 }
 
+/* Title styles */
 .title {
   flex: 1;
   text-align: center;
   margin: 0;
-  color: #e0e0e0; /* Light color for the title */
+  color: #000000; /* Dark color for the title in light mode */
 }
 
+/* Main content styles */
 main {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background-color: #e3dddd; /* Light background for the main content */
+  overflow: hidden; /* Disable scrolling within the main content */
+}
+
+/* Footer styles */
+footer {
+  height: auto; /* Allow height to adjust based on content and padding */
+  background-color: #f0f0f0; /* Light background for the footer */
+  color: #000000; /* Dark text color */
+  text-align: center;
+  padding: 1px 4px; /* Adjusted padding for better spacing */
+  border-top: 1px solid #cccccc; /* Lighter border for contrast */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212; /* Dark background for the body */
+  color: #e0e0e0; /* Light text color */
+}
+
+body.dark-mode header {
+  background-color: #1f1f1f; /* Dark background for the header */
+  color: #e0e0e0; /* Light text color */
+  border-bottom: 2px solid #333; /* Darker border for contrast */
+}
+
+body.dark-mode .title {
+  color: #e0e0e0; /* Light color for the title in dark mode */
+}
+
+body.dark-mode main {
   background-color: #1e1e1e; /* Dark background for the main content */
 }
 
-footer {
+body.dark-mode footer {
   background-color: #1f1f1f; /* Dark background for the footer */
   color: #e0e0e0; /* Light text color */
-  text-align: center;
-  padding: 15px 20px; /* Adjusted padding for better spacing */
   border-top: 1px solid #333; /* Darker border for contrast */
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.App-header, .App-footer {
-  background-color: #1f1f1f; /* Dark background for header and footer */
-}
-
-.App-main {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #1e1e1e; /* Dark background for main content */
 }
