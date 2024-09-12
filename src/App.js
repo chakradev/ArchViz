@@ -1,18 +1,41 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './components/Home';
-import ThreeCanvas from './components/ThreeCanvas'; // Ensure the import is correct
+import ThreeCanvas from './components/ThreeCanvas';
 import './App.css';
 
 const App = () => {
+  // Retrieve theme from local storage or default to true (dark mode)
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('isDarkMode');
+    return savedTheme ? JSON.parse(savedTheme) : true;
+  });
+
+  // Apply dark mode class based on the state
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', isDarkMode);
+  }, [isDarkMode]);
+
+  // Save theme to local storage when it changes
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <div className="logo">
+          <Link to="/" className="logo">
             <img src="image/chakralogo.png" alt="Logo" />
-          </div>
+          </Link>
           <h1 className="title">ArchViz</h1>
+          <button onClick={toggleDarkMode}>
+            {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+          </button>
         </header>
         <main className="App-main">
           <Routes>
@@ -23,6 +46,9 @@ const App = () => {
             <Route path="/restaurant" element={<ThreeCanvas modelType="restaurant" />} />
           </Routes>
         </main>
+        <footer className="App-footer">
+          <p>© 2024 ArchViz. Contact us at: <a href="mailto:sid542100@icloud.com">mail us</a></p>
+        </footer>
       </div>
     </Router>
   );
