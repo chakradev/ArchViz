@@ -1,12 +1,20 @@
-/* Home.css */
-
-/* General body style for dark mode */
+/* General body style for light and dark mode */
 body {
-  background-color: #121212; /* Dark background color */
-  color: #e0e0e0; /* Light text color for better readability */
   font-family: 'Arial', sans-serif; /* Choose a clean, readable font */
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Default colors for dark mode */
+body.dark-mode {
+  background-color: #121212; /* Dark background color */
+  color: #e0e0e0; /* Light text color for better readability */
+}
+
+body.light-mode {
+  background-color: #f5f5f5; /* Light background color */
+  color: #333333; /* Darker text color for better readability */
 }
 
 /* Container for home view */
@@ -16,13 +24,13 @@ body {
   justify-content: center;
   height: 100vh; /* Full viewport height */
   padding: 20px;
-  background: linear-gradient(135deg, #1e1e1e, #2c2c2c); /* Gradient background for depth */
+  background: var(--background-gradient); /* Gradient background for depth */
 }
 
 /* Content section styling */
 .content {
   text-align: center;
-  background-color: #1f1f1f; /* Slightly lighter dark background for content */
+  background-color: var(--content-background); /* Slightly lighter dark background for content */
   padding: 20px;
   border-radius: 8px; /* Rounded corners for a modern look */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
@@ -32,20 +40,21 @@ body {
 h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
-  color: #ffffff; /* White color for heading text */
+  color: var(--heading-color); /* Color for heading text */
 }
 
 /* Paragraph styling */
 p {
   font-size: 1.2em;
   margin-bottom: 20px;
-  color: #b0b0b0; /* Light gray for paragraph text */
+  color: var(--paragraph-color); /* Color for paragraph text */
 }
 
 /* Button styling */
-.explore-button {
-  background-color: #6200ea; /* Vibrant button color */
-  color: #ffffff; /* White text color */
+.explore-button,
+.custom-model-button {
+  background-color: var(--button-background); /* Vibrant button color */
+  color: var(--button-text); /* White text color */
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -55,21 +64,23 @@ p {
   margin-right: 10px; /* Space between button and dropdown */
 }
 
-.explore-button:hover {
-  background-color: #3700b3; /* Darker shade on hover */
+.explore-button:hover,
+.custom-model-button:hover {
+  background-color: var(--button-hover-background); /* Darker shade on hover */
   transform: scale(1.05); /* Slight scaling effect on hover */
 }
 
-.explore-button:focus {
+.explore-button:focus,
+.custom-model-button:focus {
   outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+  box-shadow: 0 0 0 2px var(--button-background); /* Custom focus outline */
 }
 
 /* Dropdown menu styling */
 .model-dropdown {
-  background-color: #1f1f1f; /* Dropdown background color */
-  color: #e0e0e0; /* Dropdown text color */
-  border: 1px solid #6200ea; /* Border color */
+  background-color: var(--dropdown-background); /* Dropdown background color */
+  color: var(--dropdown-text); /* Dropdown text color */
+  border: 1px solid var(--dropdown-border); /* Border color */
   border-radius: 5px;
   padding: 10px;
   font-size: 1em;
@@ -78,12 +89,12 @@ p {
 }
 
 .model-dropdown:hover {
-  background-color: #2c2c2c; /* Darker background on hover */
+  background-color: var(--dropdown-hover-background); /* Darker background on hover */
 }
 
 .model-dropdown:focus {
   outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+  box-shadow: 0 0 0 2px var(--dropdown-border); /* Custom focus outline */
 }
 
 /* Container for button and dropdown */
@@ -105,35 +116,49 @@ p {
 
 /* File input styling */
 .custom-model-input {
-  background-color: #1f1f1f; /* Match the dropdown background */
-  color: #e0e0e0; /* Match the dropdown text color */
-  border: 1px solid #6200ea; /* Match the dropdown border */
+  background-color: var(--input-background); /* Match the dropdown background */
+  color: var(--input-text); /* Match the dropdown text color */
+  border: 1px solid var(--input-border); /* Match the dropdown border */
   border-radius: 5px;
   padding: 10px;
   font-size: 1em;
   cursor: pointer;
 }
 
-/* Custom model button styling */
-.custom-model-button {
-  background-color: #6200ea; /* Different vibrant button color */
-  color: #ffffff; /* White text color */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+/* Light Mode Variables */
+body.light-mode {
+  --background-gradient: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+  --content-background: #d2d1d1;
+  --heading-color: #333333; /* Darker text color for heading */
+  --paragraph-color: #000000; /* Darker text color for paragraph */
+  --button-background: #00ea46;
+  --button-text: #0f0606;
+  --button-hover-background: #3cb300;
+  --dropdown-background: #ffffff;
+  --dropdown-text: #333333; /* Darker text color for dropdown */
+  --dropdown-border: #0ecb5d;
+  --dropdown-hover-background: #f6f3f3c4;
+  --input-background: #ffffff;
+  --input-text: #333333; /* Darker text color for input */
+  --input-border: #00ea1b;
 }
 
-.custom-model-button:hover {
-  background-color: #3700b3; /* Darker shade on hover */
-  transform: scale(1.05); /* Slight scaling effect on hover */
-}
-
-.custom-model-button:focus {
-  outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 2px #6200ea; /* Custom focus outline */
+/* Dark Mode Variables */
+body.dark-mode {
+  --background-gradient: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+  --content-background: #1f1f1f;
+  --heading-color: #ffffff;
+  --paragraph-color: #b0b0b0;
+  --button-background: #6200ea;
+  --button-text: #ffffff;
+  --button-hover-background: #3700b3;
+  --dropdown-background: #1f1f1f;
+  --dropdown-text: #e0e0e0;
+  --dropdown-border: #6200ea;
+  --dropdown-hover-background: #2c2c2c;
+  --input-background: #1f1f1f;
+  --input-text: #e0e0e0;
+  --input-border: #6200ea;
 }
 
   
