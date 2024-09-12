@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
-const Home = () => {
+const Home = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const [customModelFile, setCustomModelFile] = useState(null);
-  const theme = localStorage.getItem('isDarkMode') === 'true' ? 'dark' : 'light';
 
   useEffect(() => {
-    // Apply the theme to the body element
+    // Update the theme dynamically based on the isDarkMode prop
+    const theme = isDarkMode ? 'dark' : 'light';
     document.body.className = `${theme}-mode`;
-  }, [theme]);
+  }, [isDarkMode]);
 
   const handleLoadModel = () => {
     const model = document.getElementById('model-select').value;
@@ -67,6 +67,8 @@ const Home = () => {
     </div>
   );
 };
+
+export default Home;
 
 export default Home;
 
