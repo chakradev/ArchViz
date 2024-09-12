@@ -8,7 +8,7 @@ import { modelPaths, modelData, modelConfigurations } from './data';
 import CameraTransition from './CameraTransition';
 import Plane from './Plane';
 
-const ThreeModel = ({ modelType, setLoading }) => {
+const ThreeModel = ({ modelType, setLoading, selectedMarker }) => {
   const group = useRef();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraTarget, setCameraTarget] = useState(null);
@@ -20,10 +20,8 @@ const ThreeModel = ({ modelType, setLoading }) => {
   const config = modelConfigurations[modelType] || {};
   const { planeGeometry: planeConfig, sphereSize } = config;
 
-  // Get marker positions, labels, infos, and camera positions based on modelType
   const { markerPositions, markerLabels, markerInfos, cameraPositions } = modelData[modelType] || {};
 
-  // Load and position the model
   useEffect(() => {
     if (!gltf) return;
 
@@ -34,7 +32,17 @@ const ThreeModel = ({ modelType, setLoading }) => {
     setLoading(false);
   }, [gltf, setLoading]);
 
-  // Handle sphere click to change camera position
+  // Update camera target based on selectedMarker
+  useEffect(() => {
+    if (selectedMarker !== null && markerPositions) {
+      setSelectedIndex(selectedMarker);
+      setCameraTarget({
+        position: new THREE.Vector3(...markerPositions[selectedMarker]),
+        cameraPosition: new THREE.Vector3(...cameraPositions[selectedMarker]),
+      });
+    }
+  }, [selectedMarker, markerPositions, cameraPositions]);
+
   const handleClick = (event, mesh, position, cameraPosition) => {
     if (mesh) {
       setSelectedIndex(markerPositions.indexOf(position));
@@ -45,7 +53,6 @@ const ThreeModel = ({ modelType, setLoading }) => {
     });
   };
 
-  // Handle navigation between markers
   const handleOptionClick = (option) => {
     setCameraTarget(null);
     setSelectedIndex((prevIndex) => {
@@ -63,7 +70,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
   };
 
   useFrame(({ camera }) => {
-    cameraRef.current = camera; // Set camera reference for transitions
+    cameraRef.current = camera;
   });
 
   return (
@@ -82,7 +89,7 @@ const ThreeModel = ({ modelType, setLoading }) => {
             cameraPosition={cameraPositions[index]}
             isSelected={index === selectedIndex}
             onOptionClick={handleOptionClick}
-            sphereSize={sphereSize}  // Pass sphere size to ClickableSphere
+            sphereSize={sphereSize}
           />
         ))}
       </group>
