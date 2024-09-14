@@ -25,12 +25,24 @@ const ThreeModel = ({ modelType, setLoading, selectedMarker }) => {
   useEffect(() => {
     if (!gltf) return;
 
+    // Center the model
     const box = new THREE.Box3().setFromObject(gltf.scene);
     const center = box.getCenter(new THREE.Vector3());
     gltf.scene.position.sub(center);
     group.current.add(gltf.scene);
+
+    // Apply transparency if modelType is "house"
+    if (modelType === 'house') {
+      gltf.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.material.transparent = true;
+          child.material.opacity = 0.5; // Adjust opacity as needed
+        }
+      });
+    }
+
     setLoading(false);
-  }, [gltf, setLoading]);
+  }, [gltf, setLoading, modelType]);
 
   // Update camera target based on selectedMarker
   useEffect(() => {
