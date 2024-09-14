@@ -1,7 +1,7 @@
 export const modelPaths = {
   office: '/models/office/scene.gltf',
   room: '/models/room/scene.gltf',
-  house: '/models/house/house-water.glb',
+  house: '/models/house/house.glb',
   restaurant: '/models/restaurant/scene.gltf',
   house1: '/models/house/house-water-transformed.glb',
 };
@@ -44,24 +44,28 @@ export const modelData = {
   },
   room: {
     markerPositions: [
-      [0, 0, 0],
-      [70, 0, -100],
-      [0, 70 , 100],
+      [150, 0, 150],
+      [70, -30, -100],
+      [-130, 0, -40],
+      [-110, -40 , 150],
     ],
     markerLabels: [
-      "Room Table",
-      "Room Sofa",
-      "new",
+      "Full View",
+      "Mattress",
+      "Shelf",
+      "Computer Table",
     ],
     markerInfos: [
-      "ⓘ Info \n-----------------------\nThis is a table in the room.",
-      "ⓘ Info \n-----------------------\nThis is a sofa in the room.",
-      "ⓘ Info \n-----------------------\nThis is a new in the room.",
+      "ⓘ Info \n-----------------------\nThis is the full view the room.",
+      "ⓘ Info \n-----------------------\nThis is a Mattress in the room.",
+      "ⓘ Info \n-----------------------\nThis is a shelf in the room.",
+      "ⓘ Info \n-----------------------\nThis is a Computer Table in the room.",
     ],
     cameraPositions: [
-      [50, 0, 50],
-      [70, -10, -50],
-      [50, 120 , 150],
+      [200, 60, 200],
+      [0, 10, 60],
+      [40, 15, 40],
+      [110, 10 , -10],
     ],
   },
   house: {
