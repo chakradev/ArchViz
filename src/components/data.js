@@ -46,18 +46,22 @@ export const modelData = {
     markerPositions: [
       [0, 0, 0],
       [70, 0, -100],
+      [0, 70 , 100],
     ],
     markerLabels: [
       "Room Table",
       "Room Sofa",
+      "new",
     ],
     markerInfos: [
       "ⓘ Info \n-----------------------\nThis is a table in the room.",
       "ⓘ Info \n-----------------------\nThis is a sofa in the room.",
+      "ⓘ Info \n-----------------------\nThis is a new in the room.",
     ],
     cameraPositions: [
       [50, 0, 50],
       [70, -10, -50],
+      [50, 120 , 150],
     ],
   },
   house: {
