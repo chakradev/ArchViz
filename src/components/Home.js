@@ -54,7 +54,7 @@ const Home = ({ isDarkMode }) => {
         <div className="custom-model-section">
           <input
             type="file"
-            accept=".glb"
+            accept=".gltf, .glb"
             className="custom-model-input"
             onChange={handleCustomModelUpload}
           />
