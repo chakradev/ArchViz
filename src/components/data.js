@@ -104,6 +104,12 @@ export const modelData = {
       [6, -1, -6],
     ],
   },
+  custom: {
+    markerPositions: [],
+    markerLabels: [],
+    markerInfos: [],
+    cameraPositions: [],
+  },
 };
 
 export const modelConfigurations = {

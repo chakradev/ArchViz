@@ -28,7 +28,7 @@ const App = () => {
           <Link to="/" className="logo">
             <img src="image/chakralogo.png" alt="Logo" />
           </Link>
-          <h1 className="title">ArchViz</h1>
+          <h1 className="title">Building Elements</h1>
           <button onClick={toggleDarkMode}>
             {isDarkMode ? 'Dark Mode' : 'Light Mode'}
           </button>
@@ -40,10 +40,11 @@ const App = () => {
             <Route path="/room" element={<ThreeCanvas modelType="room" />} />
             <Route path="/house" element={<ThreeCanvas modelType="house" />} />
             <Route path="/restaurant" element={<ThreeCanvas modelType="restaurant" />} />
+            <Route path="/custom" element={<ThreeCanvas modelType="custom" />} />
           </Routes>
         </main>
         <footer className="App-footer">
-          <p>© 2024 ArchViz. Contact us at: <a href="mailto:sid542100@icloud.com">mail us</a></p>
+          <p>© 2024  Chakra Network Solutions Private Limited. Contact us at: <a href="mailto:info@chakranetwork.com">mail us</a></p>
         </footer>
       </div>
     </Router>

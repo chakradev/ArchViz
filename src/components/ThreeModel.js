@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import ClickableSphere from './ClickableSphere';
@@ -8,14 +9,15 @@ import { modelPaths, modelData, modelConfigurations } from './data';
 import CameraTransition from './CameraTransition';
 import Plane from './Plane';
 
-const ThreeModel = ({ modelType, setLoading, selectedMarker }) => {
+const ThreeModel = ({ modelType, setLoading, selectedMarker, modelFileURL }) => {
   const group = useRef();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraTarget, setCameraTarget] = useState(null);
   const cameraRef = useRef();
 
-  const modelPath = modelPaths[modelType];
-  const gltf = useLoader(GLTFLoader, modelPath);
+  const modelPath = modelPaths[modelType] || modelFileURL;
+  //const gltf = useLoader(GLTFLoader, modelPath);
+  const gltf = useGLTF(modelPath);
 
   const config = modelConfigurations[modelType] || {};
   const { planeGeometry: planeConfig, sphereSize } = config;

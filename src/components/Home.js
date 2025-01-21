@@ -28,17 +28,16 @@ const Home = ({ isDarkMode }) => {
     if (customModelFile) {
       // Pass the file to the viewer through the route
       const fileURL = URL.createObjectURL(customModelFile);
-      navigate(`/custom?model=${encodeURIComponent(fileURL)}`);
+      navigate(`/custom`, {state: {modelFileURL: fileURL}});
     } else {
-      alert("Please upload a valid GLTF/GLB model file.");
+      alert("Please upload a valid GLB model file.");
     }
   };
 
   return (
     <div className="home-container">
       <div className="content">
-        <h1>Welcome to the 3D Architecture View</h1>
-        <p>Explore and interact with stunning 3D models.</p>
+        <p>Explore and interact with building 3D models.</p>
         <div className="button-group">
           <select id="model-select" className="model-dropdown">
             <option value="office">Office Model</option>
@@ -55,12 +54,12 @@ const Home = ({ isDarkMode }) => {
         <div className="custom-model-section">
           <input
             type="file"
-            accept=".glb, .gltf"
+            accept=".glb"
             className="custom-model-input"
             onChange={handleCustomModelUpload}
           />
           <button className="custom-model-button" onClick={handleLoadCustomModel}>
-            Load Custom Model
+            Load Custom Model (.glb)
           </button>
         </div>
       </div>

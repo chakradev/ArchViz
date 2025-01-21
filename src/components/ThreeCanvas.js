@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import ThreeModel from './ThreeModel';
@@ -10,6 +11,8 @@ const ThreeCanvas = ({ modelType }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const location = useLocation();
+  const modelFileURL = (location.state) ? location.state.modelFileURL : undefined
 
   // Get configuration and marker labels based on modelType
   const config = modelConfigurations[modelType] || {};
@@ -56,7 +59,7 @@ const ThreeCanvas = ({ modelType }) => {
         camera={{ position: camera?.position || [0, 0, 15], fov: camera?.fov || 75 }}
         onCreated={() => setLoading(false)}
       >
-        <ThreeModel modelType={modelType} setLoading={setLoading} selectedMarker={selectedMarker} />
+        <ThreeModel modelType={modelType} setLoading={setLoading} selectedMarker={selectedMarker} modelFileURL={modelFileURL}/>
         <OrbitControls />
       </Canvas>
 
