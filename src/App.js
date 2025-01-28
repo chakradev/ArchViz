@@ -44,7 +44,7 @@ const App = () => {
           </Routes>
         </main>
         <footer className="App-footer">
-          <p>© 2024  Chakra Network Solutions Private Limited. Contact us at: <a href="mailto:info@chakranetwork.com">mail us</a></p>
+          <p>© 2025  Chakra Network Solutions Private Limited. Contact us at: <a href="mailto:info@chakranetwork.com">mail us</a></p>
         </footer>
       </div>
     </Router>
